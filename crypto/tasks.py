@@ -57,7 +57,7 @@ def send_notifications(name,email):
     message.send()
 
 
-@periodic_task(run_every=crontab(minute='*/1', day_of_week="*"))
+#@periodic_task(run_every=crontab(minute='*/1', day_of_week="*"))
 def cryptoprices(quote):
      price_request = requests.get("https://min-api.cryptocompare.com/data/pricemultifull?fsyms=" + quote + "&tsyms=INR")
      price = json.loads(price_request.content)
@@ -65,7 +65,7 @@ def cryptoprices(quote):
      return price['RAW'][quote]['INR']['PRICE']
 
 
-@periodic_task(run_every=crontab(minute='*/1', day_of_week="*"))
+@periodic_task(run_every=crontab(minute='*/240', day_of_week="*"))
 def compare():
     obj = Notification.objects.all()
     for i in obj:
